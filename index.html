@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>MY DAY — a day in the life of a visual communication student and first time mum</title>
+  <meta name="description" content="An illustrated scrolling timeline of one slightly chaotic creative working day.">
+  <link rel="stylesheet" href="styles.css">
+  <script src="script.js" defer></script>
+</head>
+<body>
+
+  <!-- ============ HEADER ============ -->
+  <header class="hero">
+    <div class="hero-collage edge-collage" aria-hidden="true"></div>
+    <span class="sprinkle s1" data-doodle="star"></span>
+    <span class="sprinkle s2" data-doodle="arrow"></span>
+    <span class="sprinkle s3" data-doodle="star"></span>
+    <span class="sprinkle s4" data-doodle="eye"></span>
+
+    <h1 aria-label="My Day">
+      <span aria-hidden="true">M</span><span aria-hidden="true">Y</span>
+      <span class="gap" aria-hidden="true"></span>
+      <span aria-hidden="true">D</span><span aria-hidden="true">A</span><span aria-hidden="true">Y</span>
+    </h1>
+
+    <p class="subtitle"><em>A day in the life of a visual communication student and first time mum, juggling responsibilities and getting things done!</em></p>
+
+    <!-- Tiny legend -->
+    <ul class="legend" aria-label="Legend">
+      <li class="chip chip-soft"><span aria-hidden="true">☁</span> Soft skills</li>
+      <li class="chip chip-hard"><span aria-hidden="true">✦</span> Hard skills</li>
+    </ul>
+
+    <a class="cue" href="#journey">
+      <span>scroll to begin</span>
+    </a>
+  </header>
+
+  <!-- ============ TIMELINE ============
+       The <ol> is filled by script.js from the STOPS list.
+       The SVG line is drawn behind it. The last <li> (finale) is plain HTML: edit it freely. -->
+  <main>
+    <section class="journey" id="journey" aria-label="A day, in order">
+      <svg id="line" aria-hidden="true" focusable="false">
+        <defs>
+          <!-- Slight wobble so the line looks pencilled rather than vector-perfect -->
+          <filter id="rough" x="-5%" y="-5%" width="110%" height="110%">
+            <feTurbulence type="fractalNoise" baseFrequency="0.035" numOctaves="2" seed="4" result="n"/>
+            <feDisplacementMap in="SourceGraphic" in2="n" scale="3.5"/>
+          </filter>
+        </defs>
+        <path id="ghost" class="ghost" filter="url(#rough)"/>
+        <path id="drawn" class="drawn" filter="url(#rough)"/>
+        <g id="tip" class="tip"><circle r="9"/><circle r="3.5"/></g>
+      </svg>
+
+      <div class="edge-collage" aria-hidden="true"><!-- scattered by script.js --></div>
+
+      <noscript><p class="noscript">This page draws a scrolling timeline with JavaScript. Without it, there's just me saying: I did a lot today.</p></noscript>
+
+      <ol class="stops" id="stops">
+        <!-- Stops are generated here by script.js -->
+
+        <li class="stop finale" data-move="end">
+          <div class="marker"><time>2:30<small>ish</small></time></div>
+          <div class="finale-body">
+            <h2 class="event">Apparently I did quite a lot today.</h2>
+            <ul class="tally">
+              <li>Hard skills: <b data-count="hard">9</b></li>
+              <li>Soft skills: <b data-count="soft">8</b></li>
+              <li>Ideas started: <b>approximately 47</b></li>
+            </ul>
+            <p class="note">Tomorrow I'll probably do something completely different.</p>
+            <span class="sprinkle s5" data-doodle="star"></span>
+            <span class="sprinkle s6" data-doodle="star"></span>
+          </div>
+        </li>
+      </ol>
+    </section>
+  </main>
+
+</body>
+</html>

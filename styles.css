@@ -1,0 +1,287 @@
+/* =========================================================
+   MY DAY — styles
+   Sections: tokens · page · hero · timeline · cards · finale · motion
+   ========================================================= */
+
+/* ---------- Custom display font (converted from Beth-Ellen-2.0.otf) ---------- */
+@font-face {
+  font-family: 'Beth Ellen';
+  src: url('BethEllen.woff2') format('woff2'), url('BethEllen.woff') format('woff');
+  font-weight: normal; font-style: normal; font-display: swap;
+}
+
+@font-face {
+  font-family: 'JetBrains Mono';
+  src: url('JetBrainsMono-ExtraLightItalic.woff2') format('woff2');
+  font-weight: 200; font-style: italic; font-display: swap;
+}
+
+/* ---------- Tokens: change colours / fonts here ---------- */
+:root {
+  --paper: #4a2023;   /* page background (dark maroon) */
+  --ink: #2a0f12;     /* dark text/borders ON coloured cards */
+  --fg: #3f84f7;      /* blue: text, line and outlines ON the dark background */
+  --coral: #ff4a1c;   /* red-orange blocks and accents */
+  --teal: #3f84f7;
+  --yellow: #ff4a1c;
+  --lilac: #3f84f7;
+  --cream: #ffe3d6;
+
+  --hand: 'JetBrains Mono', ui-monospace, 'Courier New', monospace;   /* body font */
+  --script: var(--hand);
+  --stamp: var(--hand);
+  --display: 'Beth Ellen', 'Caveat', 'Segoe Script', cursive;   /* headings: title, events, card titles */
+
+  --gutter: 160px;       /* width of the wandering-line corridor (desktop) */
+  --marker-top: 34px;    /* vertical position of the time tag inside a stop */
+}
+
+/* ---------- Page ---------- */
+*, *::before, *::after { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  margin: 0;
+  color: var(--fg);
+  font-family: var(--hand);
+  font-size: .95rem;
+  line-height: 1.5;
+  font-synthesis: none;
+  background-color: var(--paper);
+  overflow-x: hidden;
+}
+:focus-visible { outline: 3px dashed var(--coral); outline-offset: 5px; }
+
+.doodle, .deco svg, [data-doodle] svg, .edge-mark svg {
+  fill: none; stroke: currentColor; stroke-width: 2.6;
+  stroke-linecap: round; stroke-linejoin: round;
+}
+/* Cut-paper stars and dots are solid silhouettes. */
+svg.star, svg.collage-dot { fill: currentColor !important; stroke: none !important; }
+[data-doodle] { display: inline-block; }
+[data-doodle] svg { width: 100%; height: 100%; overflow: visible; }
+
+/* ---------- Hero ---------- */
+.hero {
+  position: relative;
+  min-height: 100svh;
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  text-align: center;
+  padding: 3rem 1.2rem 1rem;
+}
+h1 {
+  position: relative; z-index: 3;
+  margin: 0;
+  font-family: var(--display);
+  font-weight: 400;
+  font-size: clamp(4.5rem, 17vw, 11.5rem);
+  line-height: .95;
+  display: flex; justify-content: center;
+}
+h1 span { display: inline-block; color: var(--cream); transition: color .3s, rotate .4s cubic-bezier(.3, 1.8, .5, 1), translate .4s; }
+h1 .gap { width: .35em; }
+h1 span:nth-child(1) { rotate: -7deg; }
+h1 span:nth-child(2) { rotate: 5deg; translate: 0 .06em; }
+h1 span:nth-child(4) { rotate: -4deg; }
+h1 span:nth-child(5) { rotate: 6deg; translate: 0 -.05em; }
+h1 span:nth-child(6) { rotate: -3deg; }
+h1 span:hover { color: var(--coral); rotate: 0deg; translate: 0 -.12em; }
+
+.subtitle {
+  position: relative; z-index: 2;
+  max-width: 46ch; margin: 4rem auto 1.4rem; padding: .5rem 1rem;
+  color: #000; background: var(--fg); rotate: -1deg;
+  font-family: var(--script); font-size: clamp(1rem, 2.4vw, 1.25rem); line-height: 1.5;
+}
+
+.legend { list-style: none; margin: 0; padding: 0; display: flex; gap: 1rem; flex-wrap: wrap; justify-content: center; }
+.chip { padding: .3rem 1rem; font-size: .95rem; }
+.chip-soft {
+  background: var(--fg); color: var(--ink); border: 2px dashed var(--cream);
+  border-radius: 30px 40px 28px 44px / 36px 26px 38px 28px; rotate: -2deg;
+  box-shadow: 0 0 0 5px rgba(63, 132, 247, .25);
+}
+.chip-hard {
+  background: var(--coral); color: var(--ink); border: 3px solid var(--ink); border-radius: 3px 5px 2px 4px;
+  box-shadow: 4px 4px 0 var(--fg); rotate: 1.5deg; font-family: var(--stamp); font-size: .9rem; letter-spacing: .03em;
+}
+
+.cue {
+  margin-top: 2.2rem; color: var(--fg); text-decoration: none;
+  font-family: var(--script); font-size: 1.2rem; font-weight: 700;
+  display: flex; align-items: flex-end; gap: .2rem; rotate: -3deg;
+}
+.cue:hover span, .cue:focus-visible span { text-decoration: wavy underline var(--coral); }
+
+.sprinkle { position: absolute; width: 56px; height: 56px; color: var(--fg); opacity: .9; }
+.s1 { top: 12%; left: 9%;  rotate: -18deg; color: var(--coral); }
+.s2 { top: 20%; right: 10%; rotate: 25deg;  color: var(--teal); width: 64px; height: 64px; }
+.s3 { bottom: 24%; left: 14%; rotate: 10deg; color: var(--yellow); }
+.s4 { bottom: 30%; right: 12%; rotate: -5deg; }
+
+.edge-collage { position: absolute; inset: 0; z-index: 0; pointer-events: none; }
+/* full-width layer so shapes can sit in the page margins either side of the timeline column */
+.side-collage { position: absolute; top: 0; bottom: 0; left: 50%; width: 100vw; translate: -50% 0; z-index: 0; pointer-events: none; }
+.edge-mark { position: absolute; display: block; opacity: .8; }
+.edge-mark svg { width: 100%; height: 100%; }
+
+/* ---------- Timeline ---------- */
+.journey { position: relative; max-width: 1040px; margin: 0 auto; padding: 2rem 1rem 6rem; }
+
+#line { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; pointer-events: none; z-index: 1; }
+.ghost { fill: none; stroke: rgba(63, 132, 247, .3); stroke-width: 2.5; stroke-linecap: round; stroke-dasharray: 2 11; }
+.drawn { fill: none; stroke: var(--fg); stroke-width: 4.5; stroke-linecap: round; stroke-linejoin: round; }
+.tip { fill: none; stroke: var(--coral); stroke-width: 3; }
+.tip circle:last-child { fill: var(--coral); stroke: none; }
+
+.stops { list-style: none; margin: 0; padding: 0; position: relative; z-index: 2; }
+
+.stop {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  grid-template-areas: "ev" "soft" "hard" "deco";
+  row-gap: 1.1rem;
+  padding: 0 0 4.5rem 76px;      /* left room for the line on small screens */
+  min-height: 240px;
+  align-items: start;
+}
+.stop > * { min-width: 0; }
+
+/* Time tag sitting on the line (its left is set by script.js) */
+.marker {
+  position: absolute; top: var(--marker-top); left: 0; z-index: 3;
+  transform: translate(-50%, -50%); rotate: var(--r, -3deg);
+  background: var(--paper); border: 2.5px solid var(--fg); color: var(--fg);
+  border-radius: 6px 10px 5px 9px;
+  padding: .1rem .65rem; font-family: var(--stamp); font-size: .9rem; white-space: nowrap;
+  box-shadow: 0 0 0 4px var(--paper);
+}
+.marker small { font-size: .62em; margin-left: 2px; }
+
+.event {
+  grid-area: ev; margin: 0 0 .4rem; padding: 0 .4rem;
+  font-family: var(--display); font-weight: 400; font-size: clamp(1.2rem, 2vw, 1.55rem); line-height: 1.2;
+  color: var(--cream);
+}
+.deco { grid-area: deco; width: var(--size, 84px); height: var(--size, 84px); margin: 0 .6rem; color: var(--c, var(--coral)); rotate: var(--r); transform: translateX(var(--dx, 0)); }
+.deco svg { width: 100%; height: 100%; animation: bob 5s ease-in-out infinite; }
+
+/* ---------- Cards ---------- */
+.card {
+  position: relative; max-width: 390px; width: 100%; color: var(--ink);
+  --r: 0deg; rotate: var(--r);
+  transition: opacity .6s var(--d, 0s), rotate .7s cubic-bezier(.3, 1.6, .5, 1), scale .7s cubic-bezier(.3, 1.6, .5, 1);
+}
+.card h3 { position: relative; display: inline-block; margin: .1rem 0 .35rem; line-height: 1.1; }
+.card p { margin: 0 0 .3rem; }
+.card .quip { font-family: var(--script); font-weight: 700; font-size: 1rem; line-height: 1.3; margin-top: .4rem; }
+.kind { display: inline-block; font-size: .85rem; letter-spacing: .06em; text-transform: uppercase; margin-bottom: .2rem; }
+
+/* squiggly underline that draws in on hover / focus */
+.card h3::after {
+  content: ""; position: absolute; left: 0; bottom: -7px; height: 8px; width: 0;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='8'%3E%3Cpath d='M0 4 Q4 0 8 4 T16 4' fill='none' stroke='%232a0f12' stroke-width='2.5' stroke-linecap='round'/%3E%3C/svg%3E") repeat-x;
+  transition: width .45s ease;
+}
+/* tiny doodle that pops out of the corner on hover / focus */
+.card .doodle {
+  position: absolute; top: -22px; right: -16px; width: 46px; height: 46px;
+  color: var(--cream); opacity: 0; scale: .4; rotate: -25deg;
+  transition: opacity .3s, scale .45s cubic-bezier(.3, 1.8, .5, 1), rotate .45s;
+}
+.card:hover, .card:focus-visible { rotate: 0deg; scale: 1.05; z-index: 5; outline: none; }
+.card:hover h3::after, .card:focus-visible h3::after { width: 100%; }
+.card:hover .doodle, .card:focus-visible .doodle { opacity: 1; scale: 1; rotate: 10deg; }
+.card:focus-visible { outline: 3px dashed var(--coral); outline-offset: 8px; }
+
+/* SOFT: lighter, cloud-like, rounded, floating */
+.soft {
+  grid-area: soft; justify-self: stretch;
+  background: var(--bg, var(--fg));
+  border: 2.5px dashed var(--cream);
+  border-radius: 38px 54px 42px 58px / 48px 38px 56px 40px;
+  padding: 1.15rem 1.7rem 1.2rem;
+  box-shadow: 0 0 0 7px rgba(63, 132, 247, .22);
+  animation: bob 7s ease-in-out infinite;
+}
+.soft .kind { font-family: var(--script); font-size: .85rem; text-transform: none; letter-spacing: 0; }
+.soft h3 { font-family: var(--display); font-weight: 400; font-size: 1.45rem; line-height: 1.2; }
+
+/* HARD: solid, blocky, stamped, taped on */
+.hard {
+  grid-area: hard; justify-self: stretch;
+  background: var(--bg, var(--yellow));
+  border: 3px solid var(--ink); border-radius: 3px 7px 2px 6px;
+  padding: 1.2rem 1.3rem 1.1rem;
+  box-shadow: 7px 7px 0 var(--fg);
+  font-family: var(--hand);
+  --d: .2s;
+}
+.hard::before { /* strip of tape */
+  content: ""; position: absolute; top: -15px; left: 50%; width: 86px; height: 28px;
+  background: rgba(255, 255, 255, .6); border: 1px dashed rgba(42, 39, 51, .3);
+  translate: -50% 0; rotate: -4deg;
+}
+.hard .kind { font-family: var(--stamp); border: 2px solid var(--ink); padding: 0 .4rem; rotate: -2deg; }
+.hard h3 { font-family: var(--stamp); font-weight: 400; text-transform: uppercase; letter-spacing: .02em; font-size: 1rem; }
+
+/* ---------- Desktop layout: soft = left, hard = right ---------- */
+@media (min-width: 760px) {
+  .stop {
+    grid-template-columns: minmax(0, 1fr) var(--gutter) minmax(0, 1fr);
+    padding-left: 0;
+  }
+  .stop.soft-only { grid-template-areas: "soft . ev" "soft . deco"; }
+  .stop.hard-only { grid-template-areas: "ev . hard" "deco . hard"; }
+  .stop.both      { grid-template-areas: "ev . deco" "soft . hard"; }
+
+  .soft { justify-self: end; margin-right: .6rem; }
+  .hard { justify-self: start; margin-left: .6rem; }
+  .both .hard { margin-top: 3.2rem; }
+
+  .soft-only .event { text-align: left; padding-left: 1rem; }
+  .soft-only .deco { justify-self: start; margin-left: 1.4rem; }
+  .hard-only .event, .both .event { text-align: right; padding-right: 1rem; }
+  .hard-only .deco { justify-self: end; margin-right: 1.4rem; }
+  .both .deco { justify-self: start; margin-left: 1.4rem; }
+}
+@media (max-width: 759px) {
+  .deco { display: none; }
+  .marker { font-size: .95rem; padding: .05rem .5rem; }
+}
+
+/* ---------- Finale ---------- */
+.finale { display: block; min-height: 0; padding: 0; /* top padding is set by script.js to leave room for the spiral */ }
+.finale-body { position: relative; text-align: center; max-width: 520px; margin: 0 auto; }
+.finale .event { text-align: center; padding: 0; font-size: clamp(1.7rem, 4vw, 2.3rem); }
+.tally { list-style: none; margin: 1.4rem 0 2rem; padding: 0; display: flex; flex-direction: column; gap: .7rem; align-items: center; }
+.tally li {
+  background: var(--cream); border: 2.5px solid var(--ink); color: var(--ink); padding: .3rem 1.1rem; font-family: var(--stamp); font-size: 1rem;
+  box-shadow: 4px 4px 0 var(--coral); rotate: -1.5deg;
+}
+.tally li:nth-child(2) { rotate: 1.8deg; background: var(--fg); }
+.tally li:nth-child(3) { rotate: -.6deg; background: var(--coral); }
+.tally b { font-weight: 400; }
+.note { font-family: var(--script); font-size: clamp(1.2rem, 3vw, 1.6rem); font-weight: 700; line-height: 1.3; rotate: -2deg; margin: 0; }
+.s5 { left: -4%; bottom: 0; color: var(--teal); rotate: -10deg; }
+.s6 { right: 0; top: 60%; color: var(--coral); rotate: 15deg; }
+.noscript { position: relative; z-index: 3; text-align: center; }
+
+/* ---------- Scroll reveal (script.js adds .js and .in) ---------- */
+.js .stop:not(.in) .card { opacity: 0; scale: .82; rotate: calc(var(--r) + 9deg); }
+.js .stop:not(.in) .marker { opacity: 0; scale: .3; }
+.js .stop:not(.in) :is(.event, .deco, .finale-body > *) { opacity: 0; translate: 0 16px; }
+.marker { transition: opacity .4s, scale .6s cubic-bezier(.3, 1.8, .5, 1); }
+.event, .deco, .finale-body > * { transition: opacity .6s .1s, translate .6s .1s; }
+.card:hover, .card:focus-visible { /* keep hover after reveal rules */ opacity: 1; }
+
+/* ---------- Little animations ---------- */
+@keyframes bob { 0%, 100% { translate: 0 0; } 50% { translate: 0 -6px; } }
+@keyframes steam { 0%, 100% { translate: 0 0; opacity: 1; } 50% { translate: 0 -3px; opacity: .45; } }
+.steam { animation: steam 2.4s ease-in-out infinite; }
+
+/* ---------- Reduced motion: no scroll/line animation, no wobble ---------- */
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after { animation: none !important; transition-duration: .01ms !important; transition-delay: 0s !important; }
+}
