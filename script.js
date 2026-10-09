@@ -11,29 +11,29 @@
   document.documentElement.classList.add('js');
 
   /* ---------------------------------------------------------
-     1a. SKILLS — title + description shown on each card.
+     1a. SKILLS — text shown on each card.
      kind: 'soft' (floats left / above) or 'hard' (sits right / below)
      doodle: 'eye', 'arrow'/'dot', or anything else (e.g. 'star') for a generated cut-paper star
      --------------------------------------------------------- */
   const SKILLS = {
     // ---- soft ----
-    adapt:     { kind: 'soft', doodle: 'star',   title: 'Adaptability, caregiving & patience',                      text: 'Going from asleep to fully operational on demand, and staying kind about it.' },
-    play:      { kind: 'soft', doodle: 'star',   title: 'Creative engagement & teaching through play',              text: 'Making drawing something we do together, not something I demonstrate.' },
-    multitask: { kind: 'soft', doodle: 'star',     title: 'Multitasking & time management',                           text: 'Getting a person dressed while the yogurt does its thing.' },
-    delegate:  { kind: 'soft', doodle: 'star',   title: 'Delegation & turning a task into participation',           text: 'A chore becomes a shared activity, and the clothes get put away.' },
-    negotiate: { kind: 'soft', doodle: 'arrow',    title: 'Compromise & negotiation',                                 text: 'Finding a deal both parties can live with before the next set of lights.' },
-    empathy:   { kind: 'soft', doodle: 'star',     title: 'Emotional regulation, empathy & communication',            text: 'Staying calm and listening so a big transition feels a bit smaller.' },
-    initiative:{ kind: 'soft', doodle: 'star',     title: 'Planning, initiative & spatial reasoning',                 text: 'Deciding what needs changing and just starting.' },
-    problem:   { kind: 'soft', doodle: 'star', title: 'Problem-solving, critical evaluation & organisation',      text: 'Noticing that tidying cannot fix a storage problem, then fixing the storage problem.' },
-    collab:    { kind: 'soft', doodle: 'arrow',    title: 'Collaboration & facilitation',                             text: 'Reorganising shared information so a group can actually use it.' },
-    selfmgmt:  { kind: 'soft', doodle: 'eye',      title: 'Self-management & recognising cognitive limits',           text: 'Noticing the brain has left the building, and acting on it.' },
+    adapt:     { kind: 'soft', doodle: 'star',   text: 'Adaptability, caregiving & patience' },
+    play:      { kind: 'soft', doodle: 'star',   text: 'Creative engagement & teaching through play' },
+    multitask: { kind: 'soft', doodle: 'star',  text: 'Multitasking & time management' },
+    delegate:  { kind: 'soft', doodle: 'star',   text: 'Task Delegation & creating an inclusive, participatory activity' },
+    negotiate: { kind: 'soft', doodle: 'arrow',  text: 'Compromise & negotiation' },
+    empathy:   { kind: 'soft', doodle: 'star',   text: 'Emotional regulation, empathy & tailored communication' },
+    initiative:{ kind: 'soft', doodle: 'star',   text: 'Planning, initiative & spatial reasoning' },
+    problem:   { kind: 'soft', doodle: 'star',   text: 'Problem-solving, critical evaluation & organisation' },
+    collab:    { kind: 'soft', doodle: 'arrow',  text: 'Collaboration & facilitation' },
+    selfmgmt:  { kind: 'soft', doodle: 'eye',    text: 'Self-care & recognising cognitive limits' },
     // ---- hard ----
-    drawing:   { kind: 'hard', doodle: 'star',    title: 'Observational drawing & illustration',                     text: 'Drawing from reference, big and bold, on a whiteboard.' },
-    budget:    { kind: 'hard', doodle: 'star', title: 'Budgeting, prioritisation & resource management',          text: 'Researching storage that fits both the space and the money.' },
-    admin:     { kind: 'hard', doodle: 'star',   title: 'Professional communication, scheduling & workload planning', text: 'Replying to a job offer and fitting new work around everything else.' },
-    client:    { kind: 'hard', doodle: 'star',   title: 'Client communication & administration',                    text: 'Clear replies, to the right people, in a sensible order.' },
-    infodesign:{ kind: 'hard', doodle: 'star',   title: 'Information design',                                       text: 'Turning a pile of notes into a clear, shareable table.' },
-    tech:      { kind: 'hard', doodle: 'star',   title: 'Web development, interaction design & visual communication', text: 'Coding an interactive page that looks as good as it works.' },
+    drawing:   { kind: 'hard', doodle: 'star', text: 'Observational drawing & illustration' },
+    budget:    { kind: 'hard', doodle: 'star', text: 'Budgeting, resource prioritisation & management' },
+    admin:     { kind: 'hard', doodle: 'star', text: 'Professional communication, scheduling & workload planning' },
+    client:    { kind: 'hard', doodle: 'star', text: 'Client communication & administration' },
+    infodesign:{ kind: 'hard', doodle: 'star', text: 'Information design' },
+    tech:      { kind: 'hard', doodle: 'star', text: 'Web development, interaction design & visual communication' },
   };
 
   /* ---------------------------------------------------------
@@ -56,35 +56,35 @@
       hard: { id: 'drawing' },
       move: 'curve', doodle: 'star' },
 
-    { time: '8ish', ampm: 'AM', text: 'Yogurt deployed while getting dressed.',
+    { time: '8ish', ampm: 'AM', text: 'Breakfast deployed whilst I get dressed.',
       soft: { id: 'multitask' },
       move: 'zigzag', doodle: 'star' },
 
-    { time: '8:30', ampm: 'AM', text: 'Toddler helped put clothes away; laundry went on.',
+    { time: '8:30', ampm: 'AM', text: 'Toddler helped put dry clothes away; laundry went on.',
       soft: { id: 'delegate' },
       move: 'loop', doodle: 'star' },
 
-    { time: '9ish', ampm: 'AM', text: 'Nursery drive. Negotiations over the soundtrack led to the Toddler Techno Treaty of 2026.',
+    { time: '9ish', ampm: 'AM', text: 'Nursery drive. Negotiations over the soundtrack led to us listening to Toddler Techno.',
       soft: { id: 'negotiate' },
       move: 'wander', doodle: 'arrow' },
 
-    { time: '9:15', ampm: 'AM', text: 'She did not want to go into nursery. Helped her through the transition.',
+    { time: '9:15', ampm: 'AM', text: 'Daughter did not want to go into nursery. I helped her through the transition.',
       soft: { id: 'empathy' },
       move: 'spiral', doodle: 'star' },
 
-    { time: '9:45', ampm: 'AM', text: 'Home. Immediately moved a bookcase because I had already decided what needed changing.',
+    { time: '9:45', ampm: 'AM', text: 'Home. Immediately moved a bookcase because I had already decided what needed doing.',
       soft: { id: 'initiative' },
       move: 'curve', doodle: 'star' },
 
-    { time: '10–11', ampm: 'AM', text: 'Hoovering, sorting, reorganising the studio. Realised tidying could not solve a storage problem.',
+    { time: '10–11', ampm: 'AM', text: 'Hoovering, sorting, reorganising my studio. Tasks that were pre-requisites to solving my storage problem.',
       soft: { id: 'problem' },
       move: 'zigzag', doodle: 'star' },
 
-    { time: '11ish', ampm: 'AM', text: 'Researched and ordered shelving and IKEA paper drawers, within what I can spend.',
+    { time: '11ish', ampm: 'AM', text: 'Researched and ordered shelving and IKEA drawers, within what I can spend.',
       hard: { id: 'budget' },
       move: 'loop', doodle: 'star' },
 
-    { time: '11:30', ampm: 'AM', text: 'Replied to a job offer and started scheduling Digital Ambassador work around everything else.',
+    { time: '11:30', ampm: 'AM', text: 'Replied to a job offer and started scheduling Digital Ambassador work around my University schedule and everything else.',
       hard: { id: 'admin' },
       move: 'wander', doodle: 'star' },
 
@@ -97,7 +97,7 @@
       hard: { id: 'infodesign' },
       move: 'zigzag', doodle: 'star' },
 
-    { time: '1ish', ampm: 'PM', text: 'Started coding this ridiculous Day in the Life website.',
+    { time: '1ish', ampm: 'PM', text: 'Started coding this website!',
       hard: { id: 'tech' },
       move: 'loop', doodle: 'star' },
 
@@ -201,7 +201,8 @@
     const hr = heroCollage.getBoundingClientRect();
     const tr = heroTitle.getBoundingClientRect();
     const pad = 16;
-    const box = { l: tr.left - hr.left - pad, r: tr.right - hr.left + pad, t: tr.top - hr.top - pad, b: tr.bottom - hr.top + pad };
+    const jr = document.getElementById('journey').getBoundingClientRect();
+    const box = { l: Math.min(tr.left, jr.left) - hr.left - pad, r: Math.max(tr.right, jr.right) - hr.left + pad, t: -1e4, b: 1e4 };
     heroMarks.forEach(({ mark, size, spots }, i) => {
       const [nx, ny] = NUDGE[i] || [0, 0];
       const fits = ([fx, fy]) => {
@@ -260,6 +261,8 @@
     const blocks = [...document.querySelectorAll('.stop .card, .stop .event, .stop .deco, .marker, .finale-body')]
       .map(el => el.getBoundingClientRect())
       .map(r => ({ l: r.left - cr.left - pad, r: r.right - cr.left + pad, t: r.top - cr.top - pad, b: r.bottom - cr.top + pad }));
+    const jr = journey.getBoundingClientRect();
+    blocks.push({ l: jr.left - cr.left, r: jr.right - cr.left, t: -1e4, b: 1e4 });
     // keep clear of the squiggle: sample its path into small boxes
     const lineEl = document.getElementById('ghost'), sr = document.getElementById('line').getBoundingClientRect();
     const len = lineEl.getTotalLength ? lineEl.getTotalLength() : 0, lp = 22;
@@ -303,7 +306,6 @@
       <article class="card ${s.kind}" tabindex="0" style="--bg:${palette[i % palette.length]};--r:${angle}deg">
         ${icon(s.doodle, 'doodle')}
         <span class="kind">${label}</span>
-        <h3>${s.title}</h3>
         <p>${s.text}</p>
         ${ref.quip ? `<p class="quip">${ref.quip}</p>` : ''}
       </article>`;
@@ -341,14 +343,13 @@
   const drawn = document.getElementById('drawn');
   const tip = document.getElementById('tip');
   const stopEls = [...stopsList.children];
-  const mobileMQ = window.matchMedia('(max-width: 759px)');
   const reduceMQ = window.matchMedia('(prefers-reduced-motion: reduce)');
   const MARKER_TOP = 34;                                // keep in sync with --marker-top in CSS
   const WOBBLE = [0, -24, 20, -14, 24, -22, 14, -18];   // sideways drift of each time tag
   const f = n => Math.round(n * 10) / 10;
 
   /* Extra points the line passes through AFTER each time tag.
-     x,y = the tag; h = distance to the next tag; d = ±1 lean direction; s = scale (smaller on mobile) */
+     x,y = the tag; h = distance to the next tag; d = ±1 lean direction; s = scale (small, to suit the narrow column) */
   const MOVES = {
     wander: (x, y, h, d, s) => [[x + d * 42 * s, y + h * .35], [x - d * 34 * s, y + h * .68]],
     zigzag: (x, y, h, d, s) => [[x + d * 40 * s, y + h * .2], [x - d * 40 * s, y + h * .38], [x + d * 40 * s, y + h * .56], [x - d * 34 * s, y + h * .74]],
@@ -389,14 +390,13 @@
   const STEP = 5;
 
   function layout() {
-    const mobile = mobileMQ.matches;
-    const spiralR = mobile ? 55 : 90;
+    const spiralR = 55;
     finale.style.paddingTop = `${MARKER_TOP + spiralR * 2 + 36}px`;   // room for the closing spiral
 
     const jr = journey.getBoundingClientRect();
     const W = jr.width, H = jr.height;
-    const cx = mobile ? 30 : W / 2;     // the line lives at the left edge on mobile, centre on desktop
-    const s = mobile ? .4 : 1;
+    const cx = 30;                      // the line lives at the left edge of the central column
+    const s = .4;
     svg.setAttribute('viewBox', `0 0 ${W} ${H}`);
 
     const ys = stopEls.map(el => el.getBoundingClientRect().top - jr.top + MARKER_TOP);

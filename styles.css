@@ -33,12 +33,13 @@
   --display: 'Beth Ellen', 'Caveat', 'Segoe Script', cursive;   /* headings: title, events, card titles */
 
   --gutter: 160px;       /* width of the wandering-line corridor (desktop) */
+  --col-w: min(100%, 560px, max(33.333vw, 420px));   /* the central "col-4" that holds all content */
   --marker-top: 34px;    /* vertical position of the time tag inside a stop */
 }
 
 /* ---------- Page ---------- */
 *, *::before, *::after { box-sizing: border-box; }
-html { scroll-behavior: smooth; }
+html { scroll-behavior: smooth; overflow-x: clip; }
 body {
   margin: 0;
   color: var(--fg);
@@ -47,7 +48,7 @@ body {
   line-height: 1.5;
   font-synthesis: none;
   background-color: var(--paper);
-  overflow-x: hidden;
+  overflow-x: clip;
 }
 :focus-visible { outline: 3px dashed var(--coral); outline-offset: 5px; }
 
@@ -73,7 +74,7 @@ h1 {
   margin: 0;
   font-family: var(--display);
   font-weight: 400;
-  font-size: clamp(4.5rem, 17vw, 11.5rem);
+  font-size: clamp(4.5rem, 17vw, 5.5rem);
   line-height: .95;
   display: flex; justify-content: center;
 }
@@ -88,7 +89,7 @@ h1 span:hover { color: var(--coral); rotate: 0deg; translate: 0 -.12em; }
 
 .subtitle {
   position: relative; z-index: 2;
-  max-width: 46ch; margin: 4rem auto 1.4rem; padding: .5rem 1rem;
+  max-width: min(46ch, var(--col-w)); margin: 4rem auto 1.4rem; padding: .5rem 1rem;
   color: #000; background: var(--fg); rotate: -1deg;
   font-family: var(--script); font-size: clamp(1rem, 2.4vw, 1.25rem); line-height: 1.5;
 }
@@ -121,11 +122,12 @@ h1 span:hover { color: var(--coral); rotate: 0deg; translate: 0 -.12em; }
 .edge-collage { position: absolute; inset: 0; z-index: 0; pointer-events: none; }
 /* full-width layer so shapes can sit in the page margins either side of the timeline column */
 .side-collage { position: absolute; top: 0; bottom: 0; left: 50%; width: 100vw; translate: -50% 0; z-index: 0; pointer-events: none; }
+.journey > .edge-collage, .finale .sprinkle { display: none; }
 .edge-mark { position: absolute; display: block; opacity: .8; }
 .edge-mark svg { width: 100%; height: 100%; }
 
 /* ---------- Timeline ---------- */
-.journey { position: relative; max-width: 1040px; margin: 0 auto; padding: 2rem 1rem 6rem; }
+.journey { position: relative; max-width: var(--col-w); margin: 0 auto; padding: 2rem 1rem 6rem; }
 
 #line { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; pointer-events: none; z-index: 1; }
 .ghost { fill: none; stroke: rgba(63, 132, 247, .3); stroke-width: 2.5; stroke-linecap: round; stroke-dasharray: 2 11; }
@@ -141,7 +143,7 @@ h1 span:hover { color: var(--coral); rotate: 0deg; translate: 0 -.12em; }
   grid-template-columns: minmax(0, 1fr);
   grid-template-areas: "ev" "soft" "hard" "deco";
   row-gap: 1.1rem;
-  padding: 0 0 4.5rem 76px;      /* left room for the line on small screens */
+  padding: 0 1.1rem 4.5rem 76px;      /* left room for the line on small screens */
   min-height: 240px;
   align-items: start;
 }
@@ -204,7 +206,6 @@ h1 span:hover { color: var(--coral); rotate: 0deg; translate: 0 -.12em; }
   box-shadow: 0 0 0 7px rgba(63, 132, 247, .22);
   animation: bob 7s ease-in-out infinite;
 }
-.soft .kind { font-family: var(--script); font-size: .85rem; text-transform: none; letter-spacing: 0; }
 .soft h3 { font-family: var(--display); font-weight: 400; font-size: 1.45rem; line-height: 1.2; }
 
 /* HARD: solid, blocky, stamped, taped on */
@@ -222,32 +223,14 @@ h1 span:hover { color: var(--coral); rotate: 0deg; translate: 0 -.12em; }
   background: rgba(255, 255, 255, .6); border: 1px dashed rgba(42, 39, 51, .3);
   translate: -50% 0; rotate: -4deg;
 }
-.hard .kind { font-family: var(--stamp); border: 2px solid var(--ink); padding: 0 .4rem; rotate: -2deg; }
+.card .kind { font-family: var(--stamp); border: 2px solid var(--ink); padding: 0 .4rem; rotate: -2deg; }
 .hard h3 { font-family: var(--stamp); font-weight: 400; text-transform: uppercase; letter-spacing: .02em; font-size: 1rem; }
 
-/* ---------- Desktop layout: soft = left, hard = right ---------- */
-@media (min-width: 760px) {
-  .stop {
-    grid-template-columns: minmax(0, 1fr) var(--gutter) minmax(0, 1fr);
-    padding-left: 0;
-  }
-  .stop.soft-only { grid-template-areas: "soft . ev" "soft . deco"; }
-  .stop.hard-only { grid-template-areas: "ev . hard" "deco . hard"; }
-  .stop.both      { grid-template-areas: "ev . deco" "soft . hard"; }
-
-  .soft { justify-self: end; margin-right: .6rem; }
-  .hard { justify-self: start; margin-left: .6rem; }
-  .both .hard { margin-top: 3.2rem; }
-
-  .soft-only .event { text-align: left; padding-left: 1rem; }
-  .soft-only .deco { justify-self: start; margin-left: 1.4rem; }
-  .hard-only .event, .both .event { text-align: right; padding-right: 1rem; }
-  .hard-only .deco { justify-self: end; margin-right: 1.4rem; }
-  .both .deco { justify-self: start; margin-left: 1.4rem; }
-}
+/* ---------- Content lives in one central column; side space holds decorations only ---------- */
+.deco { display: none; }
+.marker { font-size: .95rem; padding: .05rem .5rem; }
 @media (max-width: 759px) {
-  .deco { display: none; }
-  .marker { font-size: .95rem; padding: .05rem .5rem; }
+  .side-collage, .hero-collage, .hero .sprinkle { display: none; }
 }
 
 /* ---------- Finale ---------- */
